@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desh Rath | Product Designer</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <!-- Embedded JS -->
+
+      <script>
+
+        document.addEventListener("DOMContentLoaded", () => {
+  const img = document.querySelector('.hero-image img');
+  if (!img) return;
+
+  img.addEventListener('mousemove', (e) => {
+    const rect = img.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * 8; 
+    const rotateY = ((x - centerX) / centerX) * 8;
+
+    img.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+  });
+
+  img.addEventListener('mouseleave', () => {
+    img.style.transform = "rotateX(0) rotateY(0) scale(1)";
+  });
+});
+const img = document.querySelector('.hero-image img');
+
+img.addEventListener('mousemove', (e) => {
+  const rect = img.getBoundingClientRect();
+  const x = e.clientX - rect.left; // mouse X within image
+  const y = e.clientY - rect.top;  // mouse Y within image
+
+  const centerX = rect.width / 2;
+  const centerY = rect.height / 2;
+
+  const rotateX = ((y - centerY) / centerY) * 10; 
+  const rotateY = ((x - centerX) / centerX) * 10;
+
+  img.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+});
+
+img.addEventListener('mouseleave', () => {
+  img.style.transform = "rotateX(0) rotateY(0) scale(1)";
+});
+</script>
+
+
+    <!-- Embedded CSS -->
+    <style>
+        /* ------------------- */
+        /* --- CSS Reset & Variables --- */
+        /* ------------------- */
+        :root {
+            --bg-color: #f7f7f7;
+            --footer-bg: #1a1a1a;
+            --primary-text: #2c2c2c;
+            --secondary-text: #5a5a5a;
+            --card-bg-light-blue: #eef6ff;
+            --card-bg-light-yellow: #fffbeb;
+            --card-bg-light-purple: #f3f1ff;
+            --card-bg-light-green: #eefef7;
+            --border-color: #e0e0e0;
+            --primary-button-bg: #000000;
+            --primary-button-text: #ffffff;
+            --secondary-button-border: #d1d1d1;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--primary-text);
+            line-height: 1.6;
+        }
+
+        /* ------------------- */
+        /* --- General & Utility Classes --- */
+        /* ------------------- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.5rem; }
+        h3 { font-size: 1.5rem; }
+
+        p {
+            color: var(--secondary-text);
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /*custom*/
+/* ==== Background Effect Behind Hero Text ==== */
+.hero-text {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-text::before {
+    content: "";
+    position: absolute;
+    top: -60px;
+    left: -60px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle at 40% 40%, rgba(0,123,255,0.15), transparent 70%);
+    z-index: -1;
+    filter: blur(100px);
+    border-radius: 50%;
+    pointer-events: none; /* makes sure it doesn’t block clicks */
+}
+.hero-container {
+  display: flex;
+  align-items: center;       /* vertically center text and image */
+  justify-content: space-between; /* push text left, image right */
+  gap: 2rem;                 /* spacing between text and image */
+}
+
+.hero-text {
+  flex: 1;                   /* text takes available space */
+}
+
+.hero-image {
+  flex: 1;                   /* image takes available space */
+  display: flex;
+  justify-content: flex-end; /* send image to the right */
+}
+
+.hero-image img {
+  max-width: 300px;          /* control image size */
+  height: auto;
+  border-radius: 20px;
+  object-fit: cover;
+  object-position: center 30%;
+}
+/*adventures*/
+/* ==== MORE ADVENTURES (COMING SOON) ==== */
+.more-adventures {
+  padding: 80px 0;
+}
+
+.more-adventures h2 {
+  margin-bottom: 8px;
+}
+
+.more-adventures .subtitle {
+  color: var(--secondary-text);
+  margin-bottom: 28px;
+}
+
+.adventures-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.adventure-card {
+  position: relative;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 22px;
+  background: #fff;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.adventure-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+}
+
+.adventure-blue { background: var(--card-bg-light-blue); }
+.adventure-purple { background: var(--card-bg-light-yellow); }
+
+.adventure-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.adventure-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(0,0,0,.06);
+  color: #333;
+}
+
+.adventure-title h3 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.adventure-title .kicker {
+  display: block;
+  font-size: .95rem;
+  color: var(--secondary-text);
+  margin-top: 2px;
+}
+
+.adventure-badge {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(0,0,0,.05);
+  color: #333;
+}
+
+.adventure-copy {
+  color: var(--secondary-text);
+  margin: 14px 0 18px;
+}
+
+.coming-soon-btn {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: #fff;
+  color: #5a5a5a;
+  font-weight: 600;
+  cursor: not-allowed;
+}
+
+/* responsive */
+@media (max-width: 992px) {
+  .adventures-grid { grid-template-columns: 1fr; }
+}
+
+
+
+
+
+
+.hero-image img:hover {
+  transform: rotateY(10deg) rotateX(4deg) scale(1.05);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+
+
+
+        /* ------------------- */
+        /* --- Navigation --- */
+        /* ------------------- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+        }
+
+.logo img {
+  height: 80px;   /* adjust size */
+  width: auto;    /* keep aspect ratio */
+  display: block; /* remove inline spacing */
+}
+
+.logo {
+  text-decoration: none; /* removes underline */
+}
+
+
+
+
+
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: var(--secondary-text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-text);
+        }
+
+        /* ------------------- */
+        /* --- Hero Section --- */
+        /* ------------------- */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+            padding: 40px 0;
+        }
+
+        .hero-text h1 {
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text p {
+            font-size: 1.125rem;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-button-bg);
+            color: var(--primary-button-text);
+        }
+
+        .btn-secondary {
+            background-color: #fff;
+            color: var(--primary-text);
+            border: 1px solid var(--secondary-button-border);
+        }
+
+
+
+        /* ------------------- */
+        /* --- Work Case Studies --- */
+        /* ------------------- */
+        .work-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .work-header a {
+            font-weight: 500;
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .case-study-card {
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .case-study-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+        }
+
+        .case-study-card:nth-child(1) { background-color: var(--card-bg-light-blue); }
+        .case-study-card:nth-child(2) { background-color: var(--card-bg-light-yellow); }
+        .case-study-card:nth-child(3) { background-color: var(--card-bg-light-green); }
+        .case-study-card:nth-child(4) { background-color: var(--card-bg-light-purple); }
+
+        .case-study-card img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .case-study-card h3 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .case-study-card p {
+             margin-bottom: 1.5rem;
+        }
+        
+        .btn-view-case {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 500;
+        }
+
+       /* ------------------- */
+
+
+/* ================================
+   EXPERIENCE — Timeline (staggered)
+   ================================ */
+:root{
+  --exp-bg: #f68c09;
+  --exp-line: #020133;
+  --exp-marker-ring: #f68c09;
+  --exp-text: #151515;
+  --exp-shadow: rgba(0,0,0,.08);
+}
+
+.experience{
+  position: relative;
+  padding: 70px 0 30px;
+}
+
+.experience h2{
+  text-align:center;
+  margin-bottom: 36px;
+  font-weight: 700;
+}
+
+/* center line */
+.experience .timeline{
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.experience .timeline::before{
+  content:"";
+  position:absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 6px;
+  margin-left: -3px;
+  background: var(--exp-line);
+  border-radius: 3px;
+  z-index: 0;
+}
+
+/* items */
+.timeline-item{
+  position: relative;
+  width: 50%;
+  padding: 10px 40px;
+  box-sizing: border-box;
+  z-index: 1;
+  margin-bottom: 40px; /* spacing between items */
+}
+
+/* odd items → left */
+.timeline-item:nth-child(odd){
+  left: 0;
+  text-align: right;
+  padding-right: 30px;
+}
+/* even items → right */
+.timeline-item:nth-child(even){
+  left: 50%;
+  text-align: left;
+  padding-left: 30px;
+}
+
+/* card style (optional, if you want boxes) */
+.timeline-item .content{
+  background: var(--exp-bg);
+  color: var(--exp-text);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px var(--exp-shadow);
+  padding: 16px 18px 14px;
+}
+
+/* arrow notches */
+.timeline-item:nth-child(odd) .content::before,
+.timeline-item:nth-child(even) .content::before{
+  content:"";
+  position:absolute; top: 22px;
+  width: 0; height: 0;
+  border: 10px solid transparent;
+}
+.timeline-item:nth-child(odd) .content::before{
+  right: -10px;
+  border-left-color: var(--exp-bg);
+}
+.timeline-item:nth-child(even) .content::before{
+  left: -10px;
+  border-right-color: var(--exp-bg);
+}
+
+/* marker dots */
+.timeline-item::after{
+  content:"";
+  position:absolute;
+  top:28px;
+  width:28px; height:28px;
+  border-radius:50%;
+  box-shadow:0 0 0 4px var(--exp-marker-ring);
+  background:#fff;
+}
+.timeline-item:nth-child(odd)::after{ right:-14px; }
+.timeline-item:nth-child(even)::after{ left:-14px; }
+
+/* hover */
+.timeline-item .content:hover{ transform: translateY(-2px); }
+
+/* responsive → stack all to one side */
+@media (max-width: 900px){
+  .experience .timeline::before{ left: 28px; }
+  .timeline-item{ width: 100%; left: 0 !important; text-align:left; padding:10px 26px 10px 60px; }
+  .timeline-item .content::before{ left:-10px; border-right-color: var(--exp-bg); border-left-color:transparent; }
+  .timeline-item::after{ left:14px; right:auto; }
+}
+
+
+/* ------------------- */
+/* --- Endorsements Section --- */
+/* ------------------- */
+.endorsements {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.endorsements h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.endorsements .subtitle {
+  color: #555;
+  margin: 0 auto 2rem auto;
+  font-size: 1.2rem;
+}
+
+/* Wrapper matches other sections */
+.endorsement-img {
+  max-width: 1200px;   /* same width as container */
+  margin: 0 auto;      /* center align */
+}
+
+/* Image fills wrapper, no border/shadow */
+.endorsement-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0;   /* keep edges straight */
+  box-shadow: none;   /* no shadow */
+  border: none;       /* no border */
+}
+
+
+
+        /* ------------------- */
+/* --- Beyond Work Section --- */
+/* ------------------- */
+.beyond-work h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.beyond-work .subtitle {
+  text-align: center;
+  max-width: none;
+  margin: 0 auto 40px auto;
+}
+
+.beyond-work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.hobby-card {
+  background-color: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.hobby-card img {
+  width: 100%;
+  height: 250px;
+  display: block;          /* removes inline-gap artifacts */
+  object-fit: cover;       /* fill the box without distortion */
+  object-position: top;    /* keep the TOP visible, crop from bottom */
+  /* optional: keep rounded corners crisp even if img loads slow */
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.hobby-card-content {
+  padding: 24px;
+}
+
+.hobby-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+        /* ------------------- */
+/* --- Footer --- */
+/* ==== FOOTER ==== */
+.footer {
+  width: 100vw;                   /* full width of the viewport */
+  margin-left: calc(-50vw + 50%); /* remove parent container offset */
+  background-color: #222;          /* dark background */
+  color: #fff;
+  text-align: center;
+  padding: 60px 20px;
+  box-sizing: border-box;
+}
+
+.footer h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.footer p {
+  font-size: 16px;
+  margin-bottom: 25px;
+  color: #ddd;
+}
+
+/* Buttons */
+.footer-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.footer-buttons .btn {
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 15px;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+.footer-buttons .btn-primary {
+  background: #007bff;
+  color: #fff;
+}
+
+.footer-buttons .btn-primary:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+.footer-buttons .btn-secondary {
+  background: #555;
+  color: #fff;
+}
+
+.footer-buttons .btn-secondary:hover {
+  background: #333;
+  transform: translateY(-2px);
+}
+
+/* Contact Info at bottom */
+.footer-contact {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #ccc;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+        /* ------------------- */
+        /* --- Responsive Design --- */
+        /* ------------------- */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.75rem; }
+            h2 { font-size: 2rem; }
+            
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+           
+            
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .beyond-work-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Simple hiding for mobile, can be replaced with a hamburger menu */
+            }
+            
+       
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ==== NAVIGATION ==== -->
+<nav class="navbar">
+  <a href="#" class="logo">
+    <img src="loho1.png" alt="Logo" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="#case-studies">Case Studies</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#endorsements">Endorsements</a></li> <!-- ✅ New -->
+  </ul>
+</nav>
+
+
+
+        <!-- ==== HERO SECTION ==== -->
+       <section class="hero" style="display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; padding: 4rem 2rem;">
+  
+  <!-- Left Side: Text -->
+<!-- Hero Section -->
+<div class="hero" style="
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 2rem; 
+  padding: 2rem; 
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: auto;
+">
+
+  <!-- Left Side: Text -->
+  <div class="hero-text" style="flex: 1; min-width: 280px; text-align: left;">
+    <h1 style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">
+      Hi, I am Harshita
+    </h1>
+    <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 1.5rem; color: #444;">
+      I am a Digital Product Designer with 1+ years of experience in UI/UX Design, 
+      Branding, and Content across FMCG and B2B E-commerce. 
+    </p>
+    <p>I build experiences that don’t just look good but also make sense.</p>
+    
+    <div class="hero-buttons" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+      <a href="https://www.linkedin.com/in/kharshita/" target="_blank" style="background: black; color: white; padding: 0.8rem 1.5rem; border-radius: 50px; text-decoration: none; font-weight: 500;">
+        Connect on LinkedIn
+      </a>
+      <a href="https://drive.google.com/file/d/16IUXbN0DAYcYrG6giy_tQrhZVlwrqPmw/view?usp=drivesdk" target="_blank" 
+     style="border: 2px solid black; padding: 0.8rem 1.5rem; border-radius: 50px; text-decoration: none; font-weight: 500; color: black;">
+    Resume
+  </a>
+    </div>
+  </div>
+
+  <!-- Right Side: Image -->
+  <div class="hero-image" style="flex: 1; min-width: 280px; text-align: center;">
+    <img src="KHARSHITA.JPG" alt="Harshita"
+     >
+  </div>
+</div>
+
+
+</section>
+    <!-- ==== WORK CASE STUDIES ==== -->
+    <section id="case-studies">
+        <div class="container">
+            <div class="work-header">
+                <h2>Work case Studies</h2>
+                <a href="#">View all Case Studies</a>
+            </div>
+            <p>Explore the projects I have worked on. Each case study has a different structure that reflects the different approaches to problem solving.</p>
+            <div class="work-grid">
+                <!-- Card 1 -->
+                <div class="case-study-card">
+                    <img src="2.jpg" alt="Enquiry to Fulfillment across internal personas"
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Image+Error';">
+                    <h3>UX Research: Enquiry to Order Fulfilment </h3>
+                    <p>Reduced knowledge transfer time and increased productivity</p>
+                    <a href="https://drive.google.com/file/d/12_-HDAFj2CLRjrVt5q3y2961Y1WtEvs7/view" class="btn-view-case">View case study</a>
+                </div>
+                <!-- Card 2 -->
+                <div class="case-study-card">
+                    <img src="1.jpg" alt="Design System Rectreation"
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Image+Error';">
+                    <h3>Design System Creation</h3>
+                    <p>Consistent UI across platforms and Faster design turnaround time</p>
+                    <a href="https://drive.google.com/file/d/1opl_TpxV2A2YHiL9eBQ_L0yjFQGb4PGL/view" class="btn-view-case">View case study</a>
+                </div>
+                <!-- Card 3 -->
+                <div class="case-study-card">
+                    <img src="3.jpg" alt="Cutting Through the Clutter"
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Image+Error';">
+                    <h3>Line Item Table Redesign</h3>
+                    <p>Reduced 3 page table view to one page view and faster task completion and less fatigue.</p>
+                    <a href="https://drive.google.com/file/d/1Oygf6qClSllDz7u2KWnQVUpeVI6v7zxG/view" class="btn-view-case">View case study</a>
+                </div>
+                <!-- Card 4 -->
+                <div class="case-study-card">
+                    <img src="4.jpg" alt="Reimagining the Buyer Portal"
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Image+Error';">
+                    <h3>Reimagining the Buyer Porta</h3>
+                    <p>Increased discoverability of key actions and more buyer-led, less RM-assisted journeys</p>
+                    <a href="https://drive.google.com/file/d/1mamB9-GFue_K3y4GHYlvlP4ek5X6-vLG/view" class="btn-view-case">View case study</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==== MORE ADVENTURES (COMING SOON) ==== -->
+<section id="more-adventures" class="more-adventures">
+  <div class="container">
+    <h2>More Adventures Ahead</h2>
+    <p class="subtitle">Stay tuned for more exciting design stories and case studies!</p>
+
+    <div class="adventures-grid">
+      <!-- Card A -->
+      <article class="adventure-card adventure-blue">
+        <div class="adventure-head">
+          <div class="adventure-icon" aria-hidden="true">
+            <!-- person-circle icon -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4 0-7 2-7 4v1h14v-1c0-2-3-4-7-4Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="adventure-title">
+            <h3>FMCG Brand Evolution</h3>
+            <span class="kicker">Complete Brand Journey</span>
+          </div>
+          <div class="adventure-badge" title="E-commerce">
+            <!-- tiny cart icon -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M6 6h14l-2 8H8L6 6Zm0 0H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="10" cy="18" r="1.6" fill="currentColor"/>
+              <circle cx="17" cy="18" r="1.6" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+
+        <p class="adventure-copy">
+          A comprehensive brand transformation that increased market recognition by 60%.
+        </p>
+
+        <button class="coming-soon-btn" disabled>Coming Soon!✨ </button>
+      </article>
+
+      <!-- Card B -->
+      <article class="adventure-card adventure-purple">
+        <div class="adventure-head">
+          <div class="adventure-icon" aria-hidden="true">
+            <!-- magic-sparkles icon -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3l1.2 3.4L16.6 7l-3.4 1.2L12 11.6 10.8 8.2 7.4 7l3.4-1.6L12 3Zm7 6.5.8 2.3 2.2.8-2.2.8L19 16.9l-.8-2.3-2.2-.8 2.2-.8L19 9.5Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="adventure-title">
+            <h3>B2B Website Magic</h3>
+            <span class="kicker">User Experience Transformation</span>
+          </div>
+          <div class="adventure-badge" title="B2B Platform">
+            <!-- phone/grid icon -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="7" y="2" width="10" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
+              <circle cx="12" cy="18" r="1.2" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+
+        <p class="adventure-copy">
+          Turning complex B2B workflows into delightful user experiences.
+        </p>
+        <br>
+
+        <button class="coming-soon-btn" disabled>Coming Soon! ✨</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+    <!-- ==== EXPERIENCE ==== -->
+  <section id="experience" class="experience">
+  <h2>Experience</h2>
+  <div class="timeline">
+    <div class="timeline-item left">
+      <h3>Product Design Intern</h3>
+      <p class="company">Birla Pivot, Aditya Birla Group</p>
+      <p class="duration">Feb 2025 – Present</p>
+    </div>
+    <div class="timeline-item right">
+      <h3>Design & Branding Executive</h3>
+      <p class="company">Hangyo Ice Creams Pvt. Ltd.</p>
+      <p class="duration">Jan 2024 – Feb 2025</p>
+    </div>
+    <div class="timeline-item left">
+      <h3>UI/UX Designer</h3>
+      <p class="company">Codsoft</p>
+      <p class="duration">Feb 2024 – Mar 2024</p>
+    </div>
+    <div class="timeline-item right">
+      <h3>Career Guidance Club President</h3>
+      <p class="company">Chandigarh University</p>
+      <p class="duration">Aug 2023 – Jun 2024</p>
+    </div>
+    <div class="timeline-item left">
+      <h3>Illustrator</h3>
+      <p class="company">Aashman Foundation</p>
+      <p class="duration">May 2022 – Jul 2022</p>
+    </div>
+  </div>
+</section>
+
+
+    <!-- ==== BEYOND WORK ==== -->
+    <section class="beyond-work">
+        <div class="container">
+            <h2>Beyond Work!</h2>
+            <p class="subtitle">Beyond work I have an active schedule that helps me keep myself busy and my mind running.</p>
+            <div class="beyond-work-grid">
+                <!-- Hobby 1 -->
+                <div class="hobby-card">
+                    <img src="chess.png" alt="Chess player"
+                         onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/333333?text=Image+Error';">
+                    <div class="hobby-card-content">
+             <h3>Chess Player & Mentor</h3>
+<p>Guiding minds on and off the board with strategy, patience, and clarity.</p>
+
+                    </div>
+                </div>
+                <!-- Hobby 2 -->
+                <div class="hobby-card">
+                    <img src="plant.png"A person teaching in front of a laptop"
+                         onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/333333?text=Image+Error';">
+                    <div class="hobby-card-content">
+                        <h3>Social worker</h3>
+                        <p>Gau Seva, community feasts, tree planting</p>
+                    </div>
+                </div>
+                <!-- Hobby 3 -->
+                <div class="hobby-card">
+                    <img src="event.png" alt="A person playing a guitar"
+                         onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/333333?text=Image+Error';">
+                    <div class="hobby-card-content">
+                        <h3>Event Organiser</h3>
+                        <p>Organised many events at college and workplaces.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==== ENDORSEMENTS ==== -->
+<!-- ==== ENDORSEMENTS ==== -->
+<section id="endorsements" class="endorsements">
+  <div class="container">
+    <h2>Endorsements</h2>
+    <p class="subtitle">Words of appreciation and feedback shared by colleagues, clients, and mentors.</p>
+    <div class="endorsement-img">
+      <img src="endo final.jpg" alt="Harshita Endorsements">
+    </div>
+  </div>
+</section>
+
+
+
+    <!-- ==== FOOTER ==== -->
+  <footer class="footer">
+  <div class="footer-content">
+    <h2>Get in touch with me</h2>
+    <p>For mentorship, design discussions or to hire me</p>
+
+    <div class="footer-buttons">
+      <a href="mailto:k.harshita2906@gmail.com" class="btn btn-primary">Email me</a>
+      <a href="https://www.linkedin.com/in/kharshita/" target="_blank" class="btn btn-secondary">Reach out on LinkedIn</a>
+    </div>
+  </div>
+
+  <div class="footer-contact">
+    <span>📧 k.harshita2906@gmail.com</span>
+    <span>📞 7888623680</span>
+  </div>
+</footer>
+
+
+</body>
+</html>
