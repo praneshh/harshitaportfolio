@@ -69,6 +69,20 @@ document.addEventListener("mousemove", (e) => {
   });
 })();
 </script>
+<script>
+  (function () {
+    const blocker = document.getElementById('mobile-blocker');
+    const toggle = () => {
+      const isMobile = window.innerWidth <= 768;
+      document.body.classList.toggle('mobile-blocked', isMobile);
+      if (isMobile) blocker.setAttribute('aria-hidden','false');
+      else blocker.setAttribute('aria-hidden','true');
+    };
+    toggle();
+    window.addEventListener('resize', toggle);
+  })();
+</script>
+
 
 
 
@@ -1045,6 +1059,91 @@ document.addEventListener("mousemove", (e) => {
   transform: translate(-50%, -50%);
   z-index: 9999;
 }
+/* --- Mobile blocker (hidden by default) --- */
+#mobile-blocker{
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  backdrop-filter: blur(4px);
+  background:
+    radial-gradient(80% 60% at 50% 0%, rgba(255,255,255,.08) 0%, rgba(0,0,0,0) 60%),
+    linear-gradient(#1a1414, #0f0b0b);
+  color: #fff;
+  place-items: center;
+  padding: 28px;
+  text-align: center;
+  font-family: 'Hanken Grotesk', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+#mobile-blocker .mb-card{
+  max-width: 680px;
+  width: min(92vw, 680px);
+  margin-inline: auto;
+  padding: clamp(24px, 5vw, 40px);
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  border: 1px solid rgba(255,255,255,.15);
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+}
+
+#mobile-blocker h2{
+  font-weight: 700;
+  font-size: clamp(22px, 4.8vw, 36px);
+  margin: 0 0 10px;
+}
+
+#mobile-blocker p{
+  font-size: clamp(14px, 3.5vw, 18px);
+  color: #e8e8e8;
+  margin: 0 0 20px;
+}
+
+#mobile-blocker .mb-links{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 12px 0 18px;
+}
+
+#mobile-blocker .mb-pill{
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.25);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+#mobile-blocker .mb-pill:hover{ background: rgba(255,255,255,.06); }
+
+#mobile-blocker .mb-contact{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 15px;
+  color: #d8d8d8;
+}
+#mobile-blocker .mb-contact a{
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(255,255,255,.25);
+}
+#mobile-blocker .mb-contact a:hover{ color:#fff; border-bottom-color:#fff; }
+
+/* Lock page scrolling when blocked */
+body.mobile-blocked{
+  overflow: hidden;
+}
+
+/* Show overlay on mobile/tablet */
+@media (max-width: 768px){
+  #mobile-blocker{ display: grid; }
+}
+
 
 </style>
 
@@ -1336,6 +1435,28 @@ document.addEventListener("mousemove", (e) => {
   </div>
 </footer>
 
+<!-- Mobile Blocker -->
+<div id="mobile-blocker" role="dialog" aria-modal="true" aria-labelledby="mb-title" aria-describedby="mb-desc">
+  <div class="mb-card">
+    <h2 id="mb-title">The portfolio isn’t available on mobile (yet)</h2>
+    <p id="mb-desc">
+      Please switch to a desktop device to access the full content.
+    </p>
+
+    <!-- Optional: links to other profiles -->
+    <div class="mb-links">
+      <a href="mailto:k.harshita2906@gmail.com" class="mb-pill">Email</a>
+      <a href="https://www.linkedin.com/in/kharshita" target="_blank" rel="noopener" class="mb-pill">LinkedIn</a>
+     
+    </div>
+
+    <div class="mb-contact">
+      <a href="mailto:k.harshita2906@gmail.com">k.harshita2906@gmail.com</a>
+      <span>•</span>
+      <a href="tel:+917888623680">+91 7888623680</a>
+    </div>
+  </div>
+</div>
 
 
 
