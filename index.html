@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
       <!-- Embedded JS -->
 
     <script>
@@ -65,7 +67,7 @@
 
 
     <!-- Embedded CSS -->
-    <style>
+   <style>
         /* ------------------- */
         /* --- CSS Reset & Variables --- */
         /* ------------------- */
@@ -82,8 +84,9 @@
             --primary-button-bg: #000000;
             --primary-button-text: #ffffff;
             --secondary-button-border: #d1d1d1;
-            --font-family: 'Inter', sans-serif;
+           --font-family: 'Hanken Grotesk', sans-serif;
         }
+        
 
         * {
             margin: 0;
@@ -108,7 +111,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 20px;
         }
 
         h1, h2, h3 {
@@ -134,13 +137,13 @@
             padding: 80px 0;
         }
 /* ===== HERO (full-bleed radial + seamless top merge) ===== */
+/* ===== HERO ===== */
 .hero {
   position: relative;
   isolation: isolate;              /* pseudo glows stay behind content */
   width: 100vw;
   margin-left: calc(50% - 50vw);   /* full-bleed */
   margin-right: calc(50% - 50vw);
-
   overflow: visible;               /* let the glow extend above */
 }
 
@@ -148,13 +151,11 @@
 .hero::before {
   content: "";
   position: absolute;
-
   /* bleed well above/below so it “merges” past the section box */
   top: -60vh;
   right: -20vw;
   bottom: -40vh;
   left: -20vw;
-
   background:
     radial-gradient(950px 560px at 26% 38%,
       rgba(246,140,9,.20) 0%,
@@ -167,7 +168,7 @@
   z-index: -1;
 }
 
-/* Soft top fade → blends perfectly into body background */
+/* Soft top fade → blends into body background */
 .hero::after {
   content: "";
   position: absolute;
@@ -175,14 +176,11 @@
   right: -20vw;
   top: -160px;                     /* overlap higher than the hero’s top */
   height: 160px;
-
-  /* Use your CSS variable (falls back to #f7f7f7 if missing) */
   background: linear-gradient(
     to top,
     rgba(247,247,247,0) 0%,
     var(--bg-color, #f7f7f7) 100%
   );
-
   z-index: -1;
 }
 
@@ -193,9 +191,15 @@
   padding: 0 60px;
 
   display: flex;
-  align-items: flex-start;
+  align-items: flex-start;          /* align image top with headline */
   justify-content: space-between;
   gap: 3rem;
+}
+
+/* ===== Typography colours (ref style) ===== */
+:root{
+  --hero-title: #141414;
+  --hero-text:  #6b655e;
 }
 
 /* Text column */
@@ -205,50 +209,149 @@
   padding-right: 32px;
   line-height: 1.7;
   font-size: 1.1rem;
-  color: #555;
+  color: var(--hero-text);
+  font-family:  'Hanken Grotesk', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
+
 .hero-text h1 {
   font-size: clamp(2.4rem, 3.6vw, 3.25rem);
   font-weight: 700;
-  color: #111;
+  color: var(--hero-title);
+  letter-spacing: -0.5px;
   margin-bottom: 1.5rem;
 }
+
 .hero-text p {
   margin-bottom: 1.5rem;
-  color: #444;
+  color: var(--hero-text);
   max-width: 56ch;
 }
 
+/* emphasis utility for keywords */
+.hero-text .accent{
+  font-weight: 700;
+  color: #5f5e5e;
+}
+
 /* Buttons */
+/* ===== Buttons (replace your current .btn / .btn-primary block) ===== */
 .hero-buttons {
   margin-top: 2.2rem;
   display: flex;
   gap: 1rem;
 }
+
 .btn {
-  display: inline-block;
+  display: inline-flex;              /* centers text nicely */
+  align-items: center;
+  justify-content: center;
   padding: 12px 28px;
   border-radius: 50px;
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
+  position: relative;
+  overflow: hidden;                  /* keep wave inside */
+  line-height: 1;                    /* tighter */
   transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.08); }
-.btn-primary { background: #000; color: #fff; }
-.btn-secondary { background: #fff; color: #111; border: 1px solid #d1d1d1; }
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+}
+
+/* LinkedIn – visible shimmer wave */
+/* LinkedIn shimmer wave – always visible */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+  z-index: 0;
+}
+
+.btn-primary > span {
+  position: relative;
+  z-index: 2;   /* keep text above */
+}
+
+/* continuous shimmer */
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: -30%;  /* extend outside to avoid clipping */
+  background:
+    linear-gradient(120deg,
+      transparent 10%,
+      rgba(255,255,255,.32) 28%,
+      rgba(255,255,255,.15) 38%,
+      transparent 55%),
+    radial-gradient(160% 90% at 50% 140%, rgba(255,255,255,.14), transparent 70%),
+    radial-gradient(160% 90% at 50% -40%, rgba(255,255,255,.12), transparent 70%);
+  transform: translateX(-60%);
+  animation: btnWave 3.8s linear infinite; /* always moving */
+  z-index: 1;
+  pointer-events: none;
+  opacity: 1; /* ensure it’s visible at rest */
+}
+
+/* hover can just slightly intensify */
+.btn-primary:hover::before {
+  filter: brightness(1.2);
+}
+
+@keyframes btnWave {
+  0%   { transform: translateX(-60%); }
+  100% { transform: translateX(60%); }
+}
+
+/* respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .btn, .btn:hover{ transform:none; box-shadow:none; }
+  .btn-primary::before{ animation:none; opacity:.18; transform:none; }
+}
+
+/* Secondary (resume) – unchanged, just a little stronger shadow to match */
+/* Resume button with constant gradient */
+/* Resume button with visible animated gradient */
+.btn-secondary {
+  background: linear-gradient(120deg, #7a7a7a, #f0f0f0, #e6e6e6, #ffffff);
+  background-size: 300% 300%;
+  animation: gradientShift 5s ease infinite;
+
+  color: #111111;
+  border: 1px solid #d1d1d1;
+  border-radius: 50px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  padding: 12px 28px;
+  font-weight: 500;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+
+/* Keyframes for shimmer */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 
 /* Image column */
 .hero-image {
   flex: 0.9;
   display: flex;
   justify-content: flex-end;
+  align-self: flex-start;           /* ensures top alignment with text block */
+  padding-top: 0.15rem;             /* tiny nudge to sit visually on headline line */
 }
+
 .hero-image img {
- 
   width: 100%;
   max-width: 320px;
   height: auto;
- 
   border-radius: 20px;
   object-fit: cover;
   object-position: center 30%;
@@ -260,10 +363,11 @@
   .hero-text { max-width: 720px; }
   .hero-image img { max-width: 360px; }
 }
+
 @media (max-width: 992px) {
   .hero-inner {
     flex-direction: column;
-    text-align: left;              /* change to center if you prefer */
+    text-align: left;
     padding: 0 24px;
   }
   .hero-text {
@@ -274,9 +378,11 @@
     justify-content: center;
     width: 100%;
     margin-top: 0.5rem;
+    padding-top: 0;                 /* reset the desktop nudge */
   }
   .hero-image img { max-width: 340px; }
 }
+
 
 
 
@@ -287,12 +393,15 @@
 }
 
 .more-adventures h2 {
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 }
 
 .more-adventures .subtitle {
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin-bottom: 48px;   /* bigger gap before cards */
+  line-height: 1.6;
   color: var(--secondary-text);
-  margin-bottom: 28px;
 }
 
 .adventures-grid {
@@ -308,6 +417,12 @@
   padding: 22px;
   background: #fff;
   transition: transform .25s ease, box-shadow .25s ease;
+
+  /* --- NEW: keep both cards aligned so the button baseline matches --- */
+  display: flex;
+  flex-direction: column;
+  gap: 6px;             /* gentle inner rhythm */
+  min-height: 270px;    /* prevents short card from collapsing */
 }
 
 .adventure-card:hover {
@@ -315,8 +430,8 @@
   box-shadow: 0 10px 24px rgba(0,0,0,.06);
 }
 
-.adventure-blue { background: var(--card-bg-light-blue); }
-.adventure-purple { background: var(--card-bg-light-yellow); }
+.adventure-blue { background: rgb(185, 230, 235); }
+.adventure-purple { background: rgb(250, 245, 210); }
 
 .adventure-head {
   display: grid;
@@ -361,17 +476,28 @@
 .adventure-copy {
   color: var(--secondary-text);
   margin: 14px 0 18px;
+
+  /* --- NEW: lets the copy take remaining height so buttons align --- */
+  flex: 1;
 }
 
+/* --- UPDATED: gradient is permanently visible + subtle animation --- */
 .coming-soon-btn {
   width: 100%;
   padding: 12px 16px;
   border-radius: 999px;
-  border: 1px solid rgba(0,0,0,.12);
-  background: #fff;
-  color: #5a5a5a;
+  border: 2px solid #000;   /* black border */
+  background: #fff;         /* white background */
+  color: #000;              /* black text */
   font-weight: 600;
   cursor: not-allowed;
+  text-align: center;
+}
+/* keyframes for the gradient sweep */
+@keyframes csGradientShift {
+  0%   { background-position:   0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position:   0% 50%; }
 }
 
 /* responsive */
@@ -443,62 +569,91 @@
         /* ------------------- */
         /* --- Work Case Studies --- */
         /* ------------------- */
-        .work-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-        
-        .work-header a {
-            font-weight: 500;
-        }
+      .work-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;   /* a little breathing space */
+}
 
-        .work-grid {
-            display: grid;
-            grid-template-columns: repeat(2,minmax(0,1fr));
-            gap: 32px;
-        }
+.work-header a {
+    font-weight: 500;
+    font-size: 1rem;
+}
 
-        .case-study-card {
-            border-radius: 20px;
-            padding: 24px;
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .case-study-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.07);
-        }
+.work-header h2 {
+    font-size: 2.2rem;   /* slightly smaller for balance */
+    font-weight: 600;
+}
 
-        .case-study-card:nth-child(1) { background-color: var(--card-bg-light-blue); }
-        .case-study-card:nth-child(2) { background-color: var(--card-bg-light-yellow); }
-        .case-study-card:nth-child(3) { background-color: var(--card-bg-light-green); }
-        .case-study-card:nth-child(4) { background-color: var(--card-bg-light-purple); }
+/* Grid layout */
+.work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;   /* consistent, airy spacing */
+}
 
-        .case-study-card img {
-            width: 100%;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-        }
-        
-        .case-study-card h3 {
-            font-size: 1.75rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .case-study-card p {
-             margin-bottom: 1.5rem;
-        }
-        
-        .btn-view-case {
-            background-color: #000;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: 500;
-        }
+/* Case study cards */
+.case-study-card {
+    border-radius: 16px;
+    padding: 20px;
+    border: none;  /* cleaner without border */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,.04); /* subtle depth */
+}
+
+/* Hover effect */
+.case-study-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* Pastel background colors */
+.case-study-card:nth-child(1) { background-color: rgb(185, 230, 235); }  /* pastel teal-blue */
+.case-study-card:nth-child(2) { background-color: rgb(250, 245, 210); }  /* pastel yellow */
+.case-study-card:nth-child(3) { background-color: rgb(201, 234, 255); }  /* pastel baby blue */
+.case-study-card:nth-child(4) { background-color: rgb(205, 213, 250); }  /* pastel lavender */
+
+/* Card content */
+.case-study-card img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+.work-header + p {
+  margin-bottom: 48px;
+   font-size: 1.3rem;  
+}
+
+
+.case-study-card h3 {
+    font-size: 1.4rem;    /* slightly smaller for neatness */
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.case-study-card p {
+    margin-bottom: 1.2rem;
+    color: #555;
+    font-size: 1rem;
+}
+
+/* Buttons inside cards */
+.btn-view-case {
+    background-color: #000;
+    color: #fff;
+    padding: 9px 18px;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-view-case:hover {
+    background-color: #333;
+    transform: translateY(-2px);
+}
 
        /* ------------experience- */
 
@@ -507,18 +662,18 @@
   padding: 70px 0 30px;
 }
 
-.experience h2{
-  text-align: left;              /* like your screenshot */
+.experience h2 {
+  text-align: left;
   max-width: 1200px;
-  
   font-weight: 700;
+  margin-bottom: 32px;  /* 🔥 added gap below heading */
 }
 
-/* wrapper */
-.exp-list{
+.exp-list {
   max-width: 1200px;
   margin: 0 auto;
 }
+
 
 /* one row = one experience */
 .exp-row{
@@ -578,6 +733,7 @@
 /* ------------------- */
 /* --- Endorsements Section --- */
 /* ------------------- */
+/* Endorsements Section */
 .endorsements {
   padding: 80px 0;
   text-align: left;
@@ -585,47 +741,54 @@
 
 .endorsements h2 {
   font-size: 2.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   font-weight: 700;
 }
 
 .endorsements .subtitle {
-  color: #555;
-  margin: 0 auto 2rem auto;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--secondary-text);
+  margin-bottom: 48px;
 }
 
-/* Wrapper matches other sections */
+/* Align image block with section text */
 .endorsement-img {
-  max-width: 1200px;   /* same width as container */
-  margin: 0 auto;      /* center align */
+  max-width: 1200px;       /* match your container width */
+  margin: 0 auto;          /* center within container */
+  padding: 0 20px;         /* align with text left/right */
 }
 
-/* Image fills wrapper, no border/shadow */
+/* Image blends with background */
 .endorsement-img img {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 0;   /* keep edges straight */
-  box-shadow: none;   /* no shadow */
-  border: none;       /* no border */
+  border-radius: 0;
+  box-shadow: none;
 }
 
 
 
-        /* ------------------- */
+
+/* ------------------- */
 /* --- Beyond Work Section --- */
 /* ------------------- */
+/* Beyond Work section */
 .beyond-work h2 {
   text-align: left;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;   /* same gap as others */
 }
 
 .beyond-work .subtitle {
-  text-align: left;
-  max-width: none;
-  margin: 0 auto 40px auto;
+  font-size: 1.3rem;      /* consistent with other subtitles */
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--secondary-text);
+  margin-bottom: 48px;    /* bigger gap before cards */
 }
+
 
 .beyond-work-grid {
   display: grid;
@@ -660,113 +823,119 @@
   margin-bottom: 0.5rem;
 }
 
-        /* ------------------- */
+/* ------------------- */
 /* --- Footer --- */
 /* ===== CTA Footer ===== */
-.cta-footer{
+
+/* ==== CTA FOOTER ==== */
+.cta-footer {
   position: relative;
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   isolation: isolate;
-  padding: clamp(56px, 8vw, 108px) 16px;
-  text-align: center;
-  overflow: hidden;
-  background:
-    radial-gradient(800px 420px at 50% 0%,
-      rgba(246, 193, 85, .18) 0%,
-      rgba(255, 255, 255, 0) 65%),
-    linear-gradient(#fff8e9, #fff4db);
-  border-top: 1px solid rgba(0,0,0,.06);
-}
 
-.cta-footer__inner{ max-width: 920px; margin: 0 auto; }
+  /* Shorter height */
+  padding: clamp(72px, 8vw, 120px) 0;
 
-/* avatar badge */
-.cta-footer__avatar{
-  position: relative;
-  display: inline-grid;
-  place-items: center;
-  width: 72px; height: 72px;
-  margin: 0 auto 18px;
-  border-radius: 999px;
-  background: #c7a6ff;
-  box-shadow: 0 10px 28px rgba(0,0,0,.10);
-}
-.cta-footer__avatar img{
-  width: 64px; height: 64px;
-  object-fit: cover;
-  border-radius: 999px;
-  border: 3px solid #fff;
-  display: block;
-}
-.cta-footer__wave{
-  position: absolute;
-  right: -10px; top: -8px;
-  font-size: 20px;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,.12));
-}
+  text-align: left;
+  background: #181212;  /* dark background */
+  border-top: 1px solid rgba(255, 255, 255, .06);
 
-/* text */
-.cta-footer__title{
-  font-size: clamp(22px, 3.2vw, 32px);
-  font-weight: 700;
-  color: #202020;
-  margin: 8px 0 10px;
-}
-.cta-footer__subtitle{
-  color: #6b6b6b;
-  font-size: clamp(14px, 1.7vw, 18px);
-  margin: 0 auto 22px;
-  max-width: 52ch;
-}
-
-/* buttons container */
-.cta-footer__buttons{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;   /* center the container */
+}
+
+.cta-footer__inner {
+  max-width: 1200px;     /* matches section width */
+  width: 100%;
+  padding: 0 60px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+/* Title */
+.cta-footer__title {
+  font-size: clamp(32px, 3.5vw, 44px);
+  font-weight: 300;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+/* Subtitle */
+.cta-footer__subtitle {
+  color: #d3d3d3;
+  font-size: clamp(18px, 2vw, 22px);
+  margin-bottom: 32px;
+  max-width: 60ch;
+}
+
+/* Buttons container */
+.cta-footer__buttons {
+  display: flex;
+  justify-content: flex-start;  /* left aligned */
   gap: 1rem;
   flex-wrap: wrap;
+  margin-bottom: 40px;
 }
 
-/* button base */
-.cta-footer__btn{
-  display: inline-block;
-  padding: 12px 24px;
+/* Button base */
+.cta-footer__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
   border-radius: 999px;
   font-weight: 600;
   text-decoration: none;
-  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+  transition: all .2s ease;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-/* primary (email) */
-.cta-footer__btn.primary{
-  background: linear-gradient(180deg, #ffbd3a, #f2a30b);
-  color: #171717;
-  box-shadow: 0 8px 20px rgba(242, 163, 11, .35);
-}
-.cta-footer__btn.primary:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 12px 26px rgba(242, 163, 11, .45);
-  filter: brightness(1.05);
-}
-
-/* secondary (linkedin) */
-.cta-footer__btn.secondary{
+/* Email button */
+.cta-footer__btn.primary {
   background: #fff;
-  color: #202020;
-  border: 1px solid #dcdcdc;
-  box-shadow: 0 4px 12px rgba(0,0,0,.06);
+  color: #111;
+  border: none;
 }
-.cta-footer__btn.secondary:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,.1);
+.cta-footer__btn.primary:hover {
+  background: #f0f0f0;
 }
 
-/* small screens niceties */
-@media (max-width: 480px){
-  .cta-footer__avatar{ width: 66px; height: 66px; }
-  .cta-footer__avatar img{ width: 58px; height: 58px; }
+/* LinkedIn button */
+.cta-footer__btn.secondary {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #444;
+}
+.cta-footer__btn.secondary:hover {
+  border-color: #777;
+  background: rgba(255,255,255,0.05);
+}
+
+/* Contact row (bottom) */
+.cta-footer__contact {
+  display: flex;
+  justify-content: flex-end;   /* align right */
+  gap: 32px;
+  flex-wrap: wrap;
+  color: #ccc;
+  font-size: 16px;
+  padding-top: 10px; /* only top spacing */
+}
+
+.cta-footer__contact a {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.cta-footer__contact a:hover {
+  color: #fff;
 }
 
 
@@ -809,7 +978,37 @@
        
         }
 
-    </style>
+/* ====== WIDTH ALIGNMENT OVERRIDES (Desh-like content width) ====== */
+:root{
+  --content-max: 1060px;            /* target content width */
+  --content-pad: 16px;             /* uniform side padding */
+}
+
+/* narrow the main content container */
+.container {
+  max-width: var(--content-max) !important;
+  padding-left: var(--content-pad) !important;
+  padding-right: var(--content-pad) !important;
+}
+
+/* make hero content match the same width */
+.hero-inner {
+  max-width: var(--content-max) !important;
+  padding-left: var(--content-pad) !important;
+  padding-right: var(--content-pad) !important;
+}
+
+/* match other sections that used larger max-widths */
+.exp-list,
+.endorsement-img {
+  max-width: var(--content-max) !important;
+  padding-left: var(--content-pad);
+  padding-right: var(--content-pad);
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
 </head>
 <body>
 
@@ -831,26 +1030,31 @@
 <!-- ===== HERO SECTION ===== -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-text">
-      <h1>Hi, I am Harshita</h1>
+   <div class="hero-text">
+  <h1>Hi, I am Harshita</h1>
 
-      <p>
-        I am a Digital Product Designer and I stand with 1+ year of experience in UI UX
-        Design, Branding, and Content across FMCG and B2B E-commerce, I build experiences
-        that don’t just look good but make sense.
-      </p>
+  <p>
+    I am a <span class="accent">Digital Product Designer</span> and I stand with 1+ year of experience in UI UX
+    Design, Branding, and Content across <span class="accent">FMCG</span> and
+    <span class="accent">B2B E-commerce</span>, I build experiences that don’t just look good but make sense.
+  </p>
 
-      <p>
-        Whether it’s sketching, rearranging furniture, or redesigning everyday stuff,
-        I am always shaping the world around me. For me, wanting to be something is one thing,
-        but being naturally driven towards something is a lifelong gift ;)
-      </p>
+  <p>
+    Whether it’s sketching, rearranging furniture, or redesigning everyday stuff,
+    I am always shaping the world around me. For me, wanting to be something is one thing,
+    but being naturally driven towards something is a lifelong gift ;)
+  </p>
 
-      <div class="hero-buttons">
-        <a href="https://www.linkedin.com/in/kharshita/" target="_blank" class="btn btn-primary">Connect on LinkedIn</a>
-        <a href="https://drive.google.com/file/d/16IUXbN0DAYcYrG6giy_tQrhZVlwrqPmw/view?usp=drivesdk" target="_blank" class="btn btn-secondary">Resume</a>
-      </div>
-    </div>
+<div class="hero-buttons">
+  <a href="https://www.linkedin.com/in/kharshita/" target="_blank" class="btn btn-primary">
+    <span>Connect on LinkedIn</span>
+  </a>
+  <a href="https://drive.google.com/file/d/16IUXbN0DAYcYrG6giy_tQrhZVlwrqPmw/view" target="_blank" class="btn btn-secondary">
+    Resume
+  </a>
+</div>
+
+</div>
 
     <div class="hero-image">
       <img src="KHARSHITA.JPG" alt="Harshita">
@@ -862,8 +1066,8 @@
     <section id="case-studies">
         <div class="container">
             <div class="work-header">
-                <h2>Work case Studies</h2>
-                <a href="#">View all Case Studies</a>
+                <h2>Work Case Studies</h2>
+             
             </div>
             <p>Explore the projects I have worked on. Each case study has a different structure that reflects the different approaches to problem solving.</p>
             <div class="work-grid">
@@ -877,10 +1081,10 @@
                 </div>
                 <!-- Card 2 -->
                 <div class="case-study-card">
-                    <img src="1.jpg" alt="Design System Rectreation"
+                    <img src="4.jpg" alt="Design System Rectreation"
                          onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Image+Error';">
-                    <h3>Design System Creation</h3>
-                    <p>Consistent UI across platforms and Faster design turnaround time</p>
+                    <h3> Reimagining the Buyer Portal</h3>
+                    <p>Increased discoverability of key actions and more buyer-led, less RM-assisted journeys </p>
                     <a href="https://drive.google.com/file/d/1opl_TpxV2A2YHiL9eBQ_L0yjFQGb4PGL/view" class="btn-view-case">View case study</a>
                 </div>
                 <!-- Card 3 -->
@@ -889,21 +1093,21 @@
                          onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Image+Error';">
                     <h3>Line Item Table Redesign</h3>
                     <p>Reduced 3 page table view to one page view and faster task completion and less fatigue.</p>
-                    <a href="https://drive.google.com/file/d/1Oygf6qClSllDz7u2KWnQVUpeVI6v7zxG/view" class="btn-view-case">View case study</a>
+                    <a href="https://drive.google.com/file/d/1Oygf6qClSllDz7u2KWnQVUpeVI6v7zxG/view    " class="btn-view-case">View case study</a>
                 </div>
                 <!-- Card 4 -->
                 <div class="case-study-card">
-                    <img src="4.jpg" alt="Reimagining the Buyer Portal"
+                    <img src="1.jpg" alt="Reimagining the Buyer Portal"
                          onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Image+Error';">
-                    <h3>Reimagining the Buyer Porta</h3>
-                    <p>Increased discoverability of key actions and more buyer-led, less RM-assisted journeys</p>
+                    <h3>Design System Creation</h3>
+                    <p> Consistent UI across platforms and Faster design turnaround time</p>
                     <a href="https://drive.google.com/file/d/1mamB9-GFue_K3y4GHYlvlP4ek5X6-vLG/view" class="btn-view-case">View case study</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ==== MORE ADVENTURES (COMING SOON) ==== -->
+<!-- ==== MORE ADVENTURES (COMING SOON) ==== -->
 <section id="more-adventures" class="more-adventures">
   <div class="container">
     <h2>More Adventures Ahead</h2>
@@ -923,18 +1127,10 @@
             <h3>FMCG Brand Evolution</h3>
             <span class="kicker">Complete Brand Journey</span>
           </div>
-          <div class="adventure-badge" title="E-commerce">
-            <!-- tiny cart icon -->
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M6 6h14l-2 8H8L6 6Zm0 0H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="10" cy="18" r="1.6" fill="currentColor"/>
-              <circle cx="17" cy="18" r="1.6" fill="currentColor"/>
-            </svg>
-          </div>
         </div>
 
         <p class="adventure-copy">
-          A comprehensive brand transformation that increased market recognition by 60%.
+          A brand transformation that increased market recognition by 60%.
         </p>
 
         <button class="coming-soon-btn" disabled>Coming Soon!✨ </button>
@@ -944,21 +1140,16 @@
       <article class="adventure-card adventure-purple">
         <div class="adventure-head">
           <div class="adventure-icon" aria-hidden="true">
-            <!-- magic-sparkles icon -->
+            <!-- smartphone icon -->
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-              <path d="M12 3l1.2 3.4L16.6 7l-3.4 1.2L12 11.6 10.8 8.2 7.4 7l3.4-1.6L12 3Zm7 6.5.8 2.3 2.2.8-2.2.8L19 16.9l-.8-2.3-2.2-.8 2.2-.8L19 9.5Z" fill="currentColor"/>
+              <path d="M7 2h10c1.1 0 2 .9 2 2v16c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2zm5 18.5c.83 0 1.5-.67 1.5-1.5S12.83 17.5 12 17.5 10.5 18.17 10.5 19s.67 1.5 1.5 1.5zM17 4H7v12h10V4z"
+                fill="currentColor"/>
             </svg>
           </div>
+
           <div class="adventure-title">
             <h3>B2B Website Magic</h3>
             <span class="kicker">User Experience Transformation</span>
-          </div>
-          <div class="adventure-badge" title="B2B Platform">
-            <!-- phone/grid icon -->
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <rect x="7" y="2" width="10" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
-              <circle cx="12" cy="18" r="1.2" fill="currentColor"/>
-            </svg>
           </div>
         </div>
 
@@ -972,8 +1163,6 @@
     </div>
   </div>
 </section>
-
-
     <!-- ==== EXPERIENCE ==== -->
   <section id="experience" class="experience">
   <h2>Experience</h2>
@@ -1076,31 +1265,31 @@
 
     <!-- ==== FOOTER ==== -->
 <!-- ===== CTA FOOTER ===== -->
-<section class="cta-footer">
+<!-- ===== CONTACT FOOTER (dark) ===== -->
+<footer class="cta-footer">
   <div class="cta-footer__inner">
-    <div class="cta-footer__avatar">
-      <img src="avatar.PNG" alt="Harshita">
-      <span class="cta-footer__wave" aria-hidden="true">👋</span>
-    </div>
-
-    <h2 class="cta-footer__title">
-      Ready to create something amazing together?
-    </h2>
-
+    <h2 class="cta-footer__title">Get in touch with me</h2>
     <p class="cta-footer__subtitle">
-      I'm always excited to take on new design adventures and challenges!
+      For mentorship, design discussions or to hire me
     </p>
 
     <div class="cta-footer__buttons">
       <a href="mailto:k.harshita2906@gmail.com" class="cta-footer__btn primary">
-        Email Me ✉️
+        ✉️ Email me
       </a>
-      <a href="https://www.linkedin.com/in/kharshita/" target="_blank" class="cta-footer__btn secondary">
-        LinkedIn 💼
+      <a href="https://www.linkedin.com/in/yourprofile" target="_blank" class="cta-footer__btn secondary">
+        Reach out on LinkedIn
       </a>
     </div>
+
+    <div class="cta-footer__contact">
+      <a href="mailto:k.harshita2906@gmail.com">✉️ k.harshita2906@gmail.com</a>
+      <a href="tel:+917888623680">📞 +91 7888623680</a>
+    </div>
   </div>
-</section>
+</footer>
+
+
 
 
 
