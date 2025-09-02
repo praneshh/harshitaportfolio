@@ -50,6 +50,12 @@
       if (rafId) cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => tilt(e));
     };
+const glow = document.querySelector(".cursor-glow");
+
+document.addEventListener("mousemove", (e) => {
+  glow.style.top = `${e.clientY}px`;
+  glow.style.left = `${e.clientX}px`;
+});
 
     const reset = () => {
       img.style.transform = "rotateX(0) rotateY(0) scale(1)";
@@ -207,8 +213,8 @@
   flex: 1.35;
   max-width: 900px;
   padding-right: 32px;
-  line-height: 1.7;
-  font-size: 1.1rem;
+  line-height: 1.6;
+  font-size: 1.25rem;
   color: var(--hero-text);
   font-family:  'Hanken Grotesk', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
@@ -430,7 +436,7 @@
   box-shadow: 0 10px 24px rgba(0,0,0,.06);
 }
 
-.adventure-blue { background: rgb(185, 230, 235); }
+.adventure-blue { background-color:  rgb(201, 234, 255);}
 .adventure-purple { background: rgb(250, 245, 210); }
 
 .adventure-head {
@@ -485,8 +491,8 @@
 .coming-soon-btn {
   width: 100%;
   padding: 12px 16px;
-  border-radius: 999px;
-  border: 2px solid #000;   /* black border */
+  border-radius: 619px;
+  border: 0.5px solid #484848;   /* black border */
   background: #fff;         /* white background */
   color: #000;              /* black text */
   font-weight: 600;
@@ -635,7 +641,7 @@
 .case-study-card p {
     margin-bottom: 1.2rem;
     color: #555;
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 /* Buttons inside cards */
@@ -692,8 +698,8 @@
 /* left column (role) */
 /* left column (role / position) */
 .exp-role {
-  font-weight: 500;                  /* medium instead of bold */
-  color: #2b2b2b;
+  font-weight: 51w0;                  /* medium instead of bold */
+  color: #6c6c6c;
   font-size: clamp(18px, 2.2vw, 28px); /* smaller than Experience heading */
   line-height: 1.4;
 }
@@ -755,9 +761,11 @@
 
 /* Align image block with section text */
 .endorsement-img {
-  max-width: 1200px;       /* match your container width */
-  margin: 0 auto;          /* center within container */
-  padding: 0 20px;         /* align with text left/right */
+ width: 100%;        /* let it take full width of container */
+  max-width: 2300px;  /* or whatever fits your layout */
+  height: auto;       /* keep proportions */
+  display: block;
+  margin: 0 auto;         /* align with text left/right */
 }
 
 /* Image blends with background */
@@ -904,6 +912,22 @@
 .cta-footer__btn.primary:hover {
   background: #f0f0f0;
 }
+/* icon inside CTA buttons */
+.cta-footer__btn .btn-icon{
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+  margin-right: 10px;          /* space before the text */
+  vertical-align: middle;
+  object-fit: contain;         /* keeps aspect ratio */
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* keep icon crisp on hover states too */
+.cta-footer__btn.primary:hover .btn-icon,
+.cta-footer__btn.secondary:hover .btn-icon{
+  filter: none;
+}
 
 /* LinkedIn button */
 .cta-footer__btn.secondary {
@@ -980,7 +1004,7 @@
 
 /* ====== WIDTH ALIGNMENT OVERRIDES (Desh-like content width) ====== */
 :root{
-  --content-max: 1060px;            /* target content width */
+  --content-max: 1200px;            /* target content width */
   --content-pad: 16px;             /* uniform side padding */
 }
 
@@ -1001,19 +1025,38 @@
 /* match other sections that used larger max-widths */
 .exp-list,
 .endorsement-img {
-  max-width: var(--content-max) !important;
-  padding-left: var(--content-pad);
-  padding-right: var(--content-pad);
-  margin-left: auto;
-  margin-right: auto;
+ width: 100%;        /* let it take full width of container */
+  max-width: 1200px;  /* or whatever fits your layout */
+  height: auto;       /* keep proportions */
+  display: block;
+  margin: 0 auto; 
 }
+/* Cursor glow effect */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;   /* size of glow */
+  height: 300px;
+  pointer-events: none;
+  border-radius: 60%;
+  background: radial-gradient(circle, rgb(255, 227, 11) 0%, rgba(0, 200, 255, 0) 70%);
+  mix-blend-mode: screen; /* makes it glow over dark bg */
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
 </style>
 
 </head>
 <body>
+<div class="cursor-glow"></div>
 
     <div class="container">
 
+
+
+      
         <!-- ==== NAVIGATION ==== -->
 <nav class="navbar">
   <a href="#" class="logo">
@@ -1076,7 +1119,8 @@
                     <img src="2.jpg" alt="Enquiry to Fulfillment across internal personas"
                          onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Image+Error';">
                     <h3>UX Research: Enquiry to Order Fulfilment </h3>
-                    <p>Reduced knowledge transfer time and increased productivity</p>
+                    <p>Reduced knowledge transfer time and increased productivity by 75%</p>
+                    <br>
                     <a href="https://drive.google.com/file/d/12_-HDAFj2CLRjrVt5q3y2961Y1WtEvs7/view" class="btn-view-case">View case study</a>
                 </div>
                 <!-- Card 2 -->
@@ -1274,16 +1318,19 @@
     </p>
 
     <div class="cta-footer__buttons">
-      <a href="mailto:k.harshita2906@gmail.com" class="cta-footer__btn primary">
-        ✉️ Email me
-      </a>
+   <a href="mailto:k.harshita2906@gmail.com" class="cta-footer__btn primary">
+  <img src="icons8-email.gif" alt="" class="btn-icon" aria-hidden="true">
+  <span>Email me</span>
+</a>
+
       <a href="https://www.linkedin.com/in/yourprofile" target="_blank" class="cta-footer__btn secondary">
+        <img src="icons8-linkedin.svg" alt="" class="btn-icon" aria-hidden="true">
         Reach out on LinkedIn
       </a>
     </div>
 
     <div class="cta-footer__contact">
-      <a href="mailto:k.harshita2906@gmail.com">✉️ k.harshita2906@gmail.com</a>
+      <a href="mailto:k.harshita2906@gmail.com"> ✉️ k.harshita2906@gmail.com</a>
       <a href="tel:+917888623680">📞 +91 7888623680</a>
     </div>
   </div>
